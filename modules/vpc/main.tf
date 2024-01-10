@@ -17,18 +17,18 @@ module "vpc" {
     source  = "terraform-google-modules/network/google"
     version = "~> 9.0"
 
-    project_id   = "<PROJECT ID>"
-    network_name = "example-vpc"
+    project_id   = "${var.project}"
+    network_name = "${var.env}-vpc"
     routing_mode = "GLOBAL"
 
     subnets = [
         {
-            subnet_name           = "subnet-01"
+            subnet_name           = "${var.env}-subnet-01"
             subnet_ip             = "10.10.10.0/24"
             subnet_region         = "us-west1"
         },
         {
-            subnet_name           = "subnet-02"
+            subnet_name           = "${var.env}-subnet-02"
             subnet_ip             = "10.10.20.0/24"
             subnet_region         = "us-west1"
             subnet_private_access = "true"
@@ -36,7 +36,7 @@ module "vpc" {
             description           = "This subnet has a description"
         },
         {
-            subnet_name               = "subnet-03"
+            subnet_name               = "${var.env}-subnet-03"
             subnet_ip                 = "10.10.30.0/24"
             subnet_region             = "us-west1"
             subnet_flow_logs          = "true"
@@ -49,7 +49,7 @@ module "vpc" {
     secondary_ranges = {
         subnet-01 = [
             {
-                range_name    = "subnet-01-secondary-01"
+                range_name    = "${var.env}-subnet-01-secondary-01"
                 ip_cidr_range = "192.168.64.0/24"
             },
         ]
